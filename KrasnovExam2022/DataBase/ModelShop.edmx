@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ModelShopKrasnov" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Auths">
+          <Key>
+            <PropertyRef Name="Id_Auths" />
+          </Key>
+          <Property Name="Id_Auths" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="15" />
+          <Property Name="Password" Type="nvarchar" MaxLength="15" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id_Client" />
+          </Key>
+          <Property Name="Id_Client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="FirsName" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Phones">
+          <Key>
+            <PropertyRef Name="Id_Phone" />
+          </Key>
+          <Property Name="Id_Phone" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Phone" Type="nvarchar" MaxLength="30" />
+          <Property Name="Id_TypePhone" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Repares">
+          <Key>
+            <PropertyRef Name="Id_Repare" />
+          </Key>
+          <Property Name="Id_Repare" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="Id_Phone" Type="int" Nullable="false" />
+          <Property Name="Id_TypeRepare" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RepareSklads">
+          <Key>
+            <PropertyRef Name="Id_RepareSklad" />
+          </Key>
+          <Property Name="Id_RepareSklad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Prone" Type="int" Nullable="false" />
+          <Property Name="Id_Client" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Role" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="Id_Sale" />
+          </Key>
+          <Property Name="Id_Sale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="Id_Phone" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Type_Material">
+          <Key>
+            <PropertyRef Name="Id_TypeMaterial" />
+          </Key>
+          <Property Name="Id_TypeMaterial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Material" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Type_Pepares">
+          <Key>
+            <PropertyRef Name="Id_TypeRepare" />
+          </Key>
+          <Property Name="Id_TypeRepare" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Repare" Type="nvarchar" MaxLength="40" />
+          <Property Name="Id_TypeMaterial" Type="int" />
+        </EntityType>
+        <EntityType Name="Type_Phones">
+          <Key>
+            <PropertyRef Name="Id_TypePhone" />
+          </Key>
+          <Property Name="Id_TypePhone" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type_NamePH" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Role" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Auths_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Auths" Type="Self.Auths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Auths">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phones_Type_Phones">
+          <End Role="Type_Phones" Type="Self.Type_Phones" Multiplicity="1" />
+          <End Role="Phones" Type="Self.Phones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Phones">
+              <PropertyRef Name="Id_TypePhone" />
+            </Principal>
+            <Dependent Role="Phones">
+              <PropertyRef Name="Id_TypePhone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repares_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+          <End Role="Repares" Type="Self.Repares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="Id_Phone" />
+            </Principal>
+            <Dependent Role="Repares">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repares_Type_Pepares">
+          <End Role="Type_Pepares" Type="Self.Type_Pepares" Multiplicity="1" />
+          <End Role="Repares" Type="Self.Repares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Pepares">
+              <PropertyRef Name="Id_TypeRepare" />
+            </Principal>
+            <Dependent Role="Repares">
+              <PropertyRef Name="Id_TypeRepare" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repares_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Repares" Type="Self.Repares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Repares">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepareSklads_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="RepareSklads" Type="Self.RepareSklads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id_Client" />
+            </Principal>
+            <Dependent Role="RepareSklads">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepareSklads_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+          <End Role="RepareSklads" Type="Self.RepareSklads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="Id_Phone" />
+            </Principal>
+            <Dependent Role="RepareSklads">
+              <PropertyRef Name="Id_Prone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="Id_Phone" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Type_Pepares_Type_Material">
+          <End Role="Type_Material" Type="Self.Type_Material" Multiplicity="0..1" />
+          <End Role="Type_Pepares" Type="Self.Type_Pepares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Material">
+              <PropertyRef Name="Id_TypeMaterial" />
+            </Principal>
+            <Dependent Role="Type_Pepares">
+              <PropertyRef Name="Id_TypeMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id_Role" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelShopKrasnovContainer">
+          <EntitySet Name="Auths" EntityType="Self.Auths" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phones" EntityType="Self.Phones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repares" EntityType="Self.Repares" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepareSklads" EntityType="Self.RepareSklads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Material" EntityType="Self.Type_Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Pepares" EntityType="Self.Type_Pepares" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Phones" EntityType="Self.Type_Phones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Auths_Users" Association="Self.FK_Auths_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Auths" EntitySet="Auths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phones_Type_Phones" Association="Self.FK_Phones_Type_Phones">
+            <End Role="Type_Phones" EntitySet="Type_Phones" />
+            <End Role="Phones" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repares_Phones" Association="Self.FK_Repares_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="Repares" EntitySet="Repares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repares_Type_Pepares" Association="Self.FK_Repares_Type_Pepares">
+            <End Role="Type_Pepares" EntitySet="Type_Pepares" />
+            <End Role="Repares" EntitySet="Repares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repares_Users" Association="Self.FK_Repares_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Repares" EntitySet="Repares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepareSklads_Clients" Association="Self.FK_RepareSklads_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="RepareSklads" EntitySet="RepareSklads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepareSklads_Phones" Association="Self.FK_RepareSklads_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="RepareSklads" EntitySet="RepareSklads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Phones" Association="Self.FK_Sales_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Users" Association="Self.FK_Sales_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type_Pepares_Type_Material" Association="Self.FK_Type_Pepares_Type_Material">
+            <End Role="Type_Material" EntitySet="Type_Material" />
+            <End Role="Type_Pepares" EntitySet="Type_Pepares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModelShopKrasnov" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Auths">
+          <Key>
+            <PropertyRef Name="Id_Auths" />
+          </Key>
+          <Property Name="Id_Auths" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Auths_Users" FromRole="Auths" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id_Client" />
+          </Key>
+          <Property Name="Id_Client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirsName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RepareSklads" Relationship="Self.FK_RepareSklads_Clients" FromRole="Clients" ToRole="RepareSklads" />
+        </EntityType>
+        <EntityType Name="Phones">
+          <Key>
+            <PropertyRef Name="Id_Phone" />
+          </Key>
+          <Property Name="Id_Phone" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Id_TypePhone" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Type_Phones" Relationship="Self.FK_Phones_Type_Phones" FromRole="Phones" ToRole="Type_Phones" />
+          <NavigationProperty Name="Repares" Relationship="Self.FK_Repares_Phones" FromRole="Phones" ToRole="Repares" />
+          <NavigationProperty Name="RepareSklads" Relationship="Self.FK_RepareSklads_Phones" FromRole="Phones" ToRole="RepareSklads" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Phones" FromRole="Phones" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Repares">
+          <Key>
+            <PropertyRef Name="Id_Repare" />
+          </Key>
+          <Property Name="Id_Repare" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Id_Phone" Type="Int32" Nullable="false" />
+          <Property Name="Id_TypeRepare" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Phones" Relationship="Self.FK_Repares_Phones" FromRole="Repares" ToRole="Phones" />
+          <NavigationProperty Name="Type_Pepares" Relationship="Self.FK_Repares_Type_Pepares" FromRole="Repares" ToRole="Type_Pepares" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Repares_Users" FromRole="Repares" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="RepareSklads">
+          <Key>
+            <PropertyRef Name="Id_RepareSklad" />
+          </Key>
+          <Property Name="Id_RepareSklad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Prone" Type="Int32" Nullable="false" />
+          <Property Name="Id_Client" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_RepareSklads_Clients" FromRole="RepareSklads" ToRole="Clients" />
+          <NavigationProperty Name="Phones" Relationship="Self.FK_RepareSklads_Phones" FromRole="RepareSklads" ToRole="Phones" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Role" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="Id_Sale" />
+          </Key>
+          <Property Name="Id_Sale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Id_Phone" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Phones" Relationship="Self.FK_Sales_Phones" FromRole="Sales" ToRole="Phones" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Sales_Users" FromRole="Sales" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Type_Material">
+          <Key>
+            <PropertyRef Name="Id_TypeMaterial" />
+          </Key>
+          <Property Name="Id_TypeMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Material" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Type_Pepares" Relationship="Self.FK_Type_Pepares_Type_Material" FromRole="Type_Material" ToRole="Type_Pepares" />
+        </EntityType>
+        <EntityType Name="Type_Pepares">
+          <Key>
+            <PropertyRef Name="Id_TypeRepare" />
+          </Key>
+          <Property Name="Id_TypeRepare" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Repare" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Id_TypeMaterial" Type="Int32" />
+          <NavigationProperty Name="Repares" Relationship="Self.FK_Repares_Type_Pepares" FromRole="Type_Pepares" ToRole="Repares" />
+          <NavigationProperty Name="Type_Material" Relationship="Self.FK_Type_Pepares_Type_Material" FromRole="Type_Pepares" ToRole="Type_Material" />
+        </EntityType>
+        <EntityType Name="Type_Phones">
+          <Key>
+            <PropertyRef Name="Id_TypePhone" />
+          </Key>
+          <Property Name="Id_TypePhone" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_NamePH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Phones" Relationship="Self.FK_Phones_Type_Phones" FromRole="Type_Phones" ToRole="Phones" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Auths" Relationship="Self.FK_Auths_Users" FromRole="Users" ToRole="Auths" />
+          <NavigationProperty Name="Repares" Relationship="Self.FK_Repares_Users" FromRole="Users" ToRole="Repares" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Users" FromRole="Users" ToRole="Sales" />
+        </EntityType>
+        <Association Name="FK_Auths_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Auths" Type="Self.Auths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Auths">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepareSklads_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="RepareSklads" Type="Self.RepareSklads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id_Client" />
+            </Principal>
+            <Dependent Role="RepareSklads">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phones_Type_Phones">
+          <End Role="Type_Phones" Type="Self.Type_Phones" Multiplicity="1" />
+          <End Role="Phones" Type="Self.Phones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Phones">
+              <PropertyRef Name="Id_TypePhone" />
+            </Principal>
+            <Dependent Role="Phones">
+              <PropertyRef Name="Id_TypePhone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repares_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+          <End Role="Repares" Type="Self.Repares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="Id_Phone" />
+            </Principal>
+            <Dependent Role="Repares">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepareSklads_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+          <End Role="RepareSklads" Type="Self.RepareSklads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="Id_Phone" />
+            </Principal>
+            <Dependent Role="RepareSklads">
+              <PropertyRef Name="Id_Prone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="Id_Phone" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repares_Type_Pepares">
+          <End Role="Type_Pepares" Type="Self.Type_Pepares" Multiplicity="1" />
+          <End Role="Repares" Type="Self.Repares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Pepares">
+              <PropertyRef Name="Id_TypeRepare" />
+            </Principal>
+            <Dependent Role="Repares">
+              <PropertyRef Name="Id_TypeRepare" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repares_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Repares" Type="Self.Repares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Repares">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id_Role" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Type_Pepares_Type_Material">
+          <End Role="Type_Material" Type="Self.Type_Material" Multiplicity="0..1" />
+          <End Role="Type_Pepares" Type="Self.Type_Pepares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Material">
+              <PropertyRef Name="Id_TypeMaterial" />
+            </Principal>
+            <Dependent Role="Type_Pepares">
+              <PropertyRef Name="Id_TypeMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopEnitites" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Auths" EntityType="Self.Auths" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Phones" EntityType="Self.Phones" />
+          <EntitySet Name="Repares" EntityType="Self.Repares" />
+          <EntitySet Name="RepareSklads" EntityType="Self.RepareSklads" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Type_Material" EntityType="Self.Type_Material" />
+          <EntitySet Name="Type_Pepares" EntityType="Self.Type_Pepares" />
+          <EntitySet Name="Type_Phones" EntityType="Self.Type_Phones" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Auths_Users" Association="Self.FK_Auths_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Auths" EntitySet="Auths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepareSklads_Clients" Association="Self.FK_RepareSklads_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="RepareSklads" EntitySet="RepareSklads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phones_Type_Phones" Association="Self.FK_Phones_Type_Phones">
+            <End Role="Type_Phones" EntitySet="Type_Phones" />
+            <End Role="Phones" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repares_Phones" Association="Self.FK_Repares_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="Repares" EntitySet="Repares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepareSklads_Phones" Association="Self.FK_RepareSklads_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="RepareSklads" EntitySet="RepareSklads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Phones" Association="Self.FK_Sales_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repares_Type_Pepares" Association="Self.FK_Repares_Type_Pepares">
+            <End Role="Type_Pepares" EntitySet="Type_Pepares" />
+            <End Role="Repares" EntitySet="Repares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repares_Users" Association="Self.FK_Repares_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Repares" EntitySet="Repares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Users" Association="Self.FK_Sales_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type_Pepares_Type_Material" Association="Self.FK_Type_Pepares_Type_Material">
+            <End Role="Type_Material" EntitySet="Type_Material" />
+            <End Role="Type_Pepares" EntitySet="Type_Pepares" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelShopKrasnovContainer" CdmEntityContainer="ShopEnitites">
+          <EntitySetMapping Name="Auths">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Auths">
+              <MappingFragment StoreEntitySet="Auths">
+                <ScalarProperty Name="Id_Auths" ColumnName="Id_Auths" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id_Client" ColumnName="Id_Client" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="FirsName" ColumnName="FirsName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Phones">
+              <MappingFragment StoreEntitySet="Phones">
+                <ScalarProperty Name="Id_Phone" ColumnName="Id_Phone" />
+                <ScalarProperty Name="Name_Phone" ColumnName="Name_Phone" />
+                <ScalarProperty Name="Id_TypePhone" ColumnName="Id_TypePhone" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repares">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Repares">
+              <MappingFragment StoreEntitySet="Repares">
+                <ScalarProperty Name="Id_Repare" ColumnName="Id_Repare" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Phone" ColumnName="Id_Phone" />
+                <ScalarProperty Name="Id_TypeRepare" ColumnName="Id_TypeRepare" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepareSklads">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.RepareSklads">
+              <MappingFragment StoreEntitySet="RepareSklads">
+                <ScalarProperty Name="Id_RepareSklad" ColumnName="Id_RepareSklad" />
+                <ScalarProperty Name="Id_Prone" ColumnName="Id_Prone" />
+                <ScalarProperty Name="Id_Client" ColumnName="Id_Client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="Name_Role" ColumnName="Name_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Sales">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="Id_Sale" ColumnName="Id_Sale" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Phone" ColumnName="Id_Phone" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Material">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Type_Material">
+              <MappingFragment StoreEntitySet="Type_Material">
+                <ScalarProperty Name="Id_TypeMaterial" ColumnName="Id_TypeMaterial" />
+                <ScalarProperty Name="Name_Material" ColumnName="Name_Material" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Pepares">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Type_Pepares">
+              <MappingFragment StoreEntitySet="Type_Pepares">
+                <ScalarProperty Name="Id_TypeRepare" ColumnName="Id_TypeRepare" />
+                <ScalarProperty Name="Name_Repare" ColumnName="Name_Repare" />
+                <ScalarProperty Name="Id_TypeMaterial" ColumnName="Id_TypeMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Phones">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Type_Phones">
+              <MappingFragment StoreEntitySet="Type_Phones">
+                <ScalarProperty Name="Id_TypePhone" ColumnName="Id_TypePhone" />
+                <ScalarProperty Name="Type_NamePH" ColumnName="Type_NamePH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ModelShopKrasnov.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

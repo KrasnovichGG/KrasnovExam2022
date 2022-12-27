@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0c219c294b5b4b2cb90359e954ef35af" Name="Diagram1">
+        <EntityTypeShape EntityType="ModelShopKrasnov.Auths" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Clients" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Phones" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Repares" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.RepareSklads" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Roles" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Sales" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Type_Material" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Type_Pepares" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Type_Phones" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelShopKrasnov.Users" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Auths_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_RepareSklads_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Phones_Type_Phones" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Repares_Phones" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_RepareSklads_Phones" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Sales_Phones" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Repares_Type_Pepares" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Repares_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Sales_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelShopKrasnov.FK_Type_Pepares_Type_Material" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

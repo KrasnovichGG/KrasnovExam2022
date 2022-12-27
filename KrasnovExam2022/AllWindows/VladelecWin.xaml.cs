@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KrasnovExam2022
+namespace KrasnovExam2022.AllWindows
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для VladelecWin.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class VladelecWin : Window
     {
-        public MainWindow()
+        public VladelecWin()
         {
             InitializeComponent();
         }

@@ -1,0 +1,26 @@
+﻿<Window x:Class="KrasnovExam2022.WinAutarization"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KrasnovExam2022"
+        mc:Ignorable="d"
+        Background="Azure"
+        FontSize="15"
+        FontFamily="Comic Sans MS"
+        Title="Добро пожаловать!" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="481*"/>
+            <ColumnDefinition Width="159*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="LbLog" Grid.Column="1" Content="Логин" HorizontalAlignment="Center" Margin="0,91,0,0" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" MaxLength="15" ToolTip="Максимум до 15 символов!" HorizontalAlignment="Center" Margin="0,127,0,0" TextWrapping="Wrap" BorderThickness="2" BorderBrush="Green" x:Name="TbLOG" VerticalAlignment="Top" Width="160" Height="41"/>
+        <PasswordBox Grid.Column="1" MaxLength="15" ToolTip="Максимум до 15 символов!" HorizontalAlignment="Center" Margin="0,231,0,0" VerticalAlignment="Top" BorderThickness="2" BorderBrush="Green" PasswordChar="*" x:Name="PbLog" Width="160" Height="41"/>
+        <Label x:Name="LbPass" Grid.Column="1" Content="Пароль" HorizontalAlignment="Center" Margin="0,195,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="BtnLOGApp" Grid.Column="1" Content="Войти" Background="Azure" BorderThickness="2" BorderBrush="Green" HorizontalAlignment="Center" Margin="0,335,0,0" VerticalAlignment="Top" Width="184" Click="BtnLOGApp_Click"/>
+        <Label x:Name="LbShop" Grid.Column="1" Content="Магазин телефонов &quot;Звоночек&quot;" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

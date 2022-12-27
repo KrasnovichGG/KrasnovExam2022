@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KrasnovExam2022.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,8 @@ namespace KrasnovExam2022
     /// </summary>
     public partial class App : Application
     {
+        public static  ShopEnitites DB = new ShopEnitites();
+        public static Users users;
+        public static Auths auths;
     }
 }
